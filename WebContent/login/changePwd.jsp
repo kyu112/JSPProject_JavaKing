@@ -1,0 +1,720 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>:: 비트대학교 ::</title>
+
+<style type="text/css">
+a {
+	text-decoration: none;
+	color : black;
+}
+
+body {
+	font-family: sans-serif;
+	margin: 0;
+	width: 2000px;
+	height: 100%;
+	padding : 0;
+	background-color: #FFFFFF;
+	display: inline-block;
+	position: relative;
+}
+
+#logo {
+	display : inline-block;
+	margin-left : 40%;
+	padding-top : 20px;
+}
+
+#lock_image{
+	vertical-align: middle;
+}
+
+#hello_box{
+	display : inline-block;
+	margin-left : 70%;
+	vertical-align: middle;
+	padding-bottom: 10px;
+}
+
+#name {
+	font-weight: bold;
+	color:#083b90;
+}
+
+#logout {
+	font-weight: bold;
+	color:#8C8C8C;
+}
+
+#nav_boxes{
+	position: relative;
+}
+
+.nav {
+	display: inline-block;
+	background-color: #FFFFFF;
+	width : 100px;
+	height: 30px;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#nav_box {
+	display: inline;
+	width : 100%;
+}
+
+#nav1 {
+	margin-left : 400px;
+}
+
+.nav_window {
+	display : none;
+	position : absolute;
+	width : 100%;
+	height : 160px;
+	background-color: #083b90;
+}
+
+.nav:hover {
+	background-color: #083b90;
+	color : #FFFFFF;
+}
+
+#nav1:hover + #nav_window1{
+	display : block;
+	border-bottom: 1px #083b90 solid;
+	border-top: 1px #083b90 solid;
+}
+
+#nav2:hover + #nav_window2{
+	display : block;
+	border-bottom: 1px #083b90 solid;
+	border-top: 1px #083b90 solid;
+}
+
+#nav3:hover + #nav_window3{
+	display : block;
+	border-bottom: 1px #083b90 solid;
+	border-top: 1px #083b90 solid;
+}
+
+#nav4:hover + #nav_window4{
+	display : block;
+	border-bottom: 1px #083b90 solid;
+	border-top: 1px #083b90 solid;
+}
+
+#nav_window1:hover {
+	display : block;
+	border-bottom: 1px #083b90 solid;
+	border-top: 1px #083b90 solid;
+}
+
+#nav_window2:hover {
+	display : block;
+	border-bottom: 1px #083b90 solid;
+	border-top: 1px #083b90 solid;
+}
+
+#nav_window3:hover {
+	display : block;
+	border-bottom: 1px #083b90 solid;
+	border-top: 1px #083b90 solid;
+}
+
+#nav_window4:hover {
+	display : block;
+	border-bottom: 1px #083b90 solid;
+	border-top: 1px #083b90 solid;
+}
+
+.nav_title {
+	font-size: 30px;
+	font-weight: bold;
+	color: #FFFFFF;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.nav_right{
+	display: inline-block;
+	background-color: #FFFFFF;
+	height : 100%;
+	width : 75%;
+	position: absolute;
+	left : 25%;
+}
+
+.nav_right_title {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.nav_right_box{
+	display: inline-block;
+	padding : 20px;
+	vertical-align: top;
+}
+
+li {
+	list-style-type: square;
+}
+
+section {
+	background-color: #EBF7FF;
+}
+
+#section_main {
+	margin-left: 19%;
+	margin-top: 50px;
+	width: 1250px;
+}
+
+#big_box {
+	display: inline-block;
+	border : 2px #E1E1E1 solid;
+	width : 390px;
+	height : 290px;
+	vertical-align: top;
+}
+
+#box_blue {
+	background-color: #083b90;
+	width : 390px;
+	height : 290px;
+	color: #FFFFFF;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#go_info_box_image{
+	display : inline-block;
+	width : 30px;
+	height : 30px;
+	margin-left: 80px;
+	padding:10px;
+}
+
+#box_white {
+	display : inline-block;
+	background-color: #FFFFFF;
+	padding : 20px;
+	width : 350px;
+	height : 125px;
+}
+
+#change_box{
+	display: inline-block; 
+	margin-left: 50px;
+	vertical-align: top; 
+	margin-top:25px;
+}
+
+#change_text{
+	display: inline-block;
+	text-align: left;
+	width : 200px;
+}
+
+#change_pwd{
+	font-size: 30px;
+	padding-top:11px;
+	margin-bottom: 5px;
+	width:190.55px;
+}
+
+#error {
+	font-weight: bold;
+	font-size: 13px;
+	color :#42bfee;	
+	margin-bottom :16px;
+}
+
+#change_pwd_box{ 
+	margin-top:2px;
+	border :2px solid #9fbaee;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+#pwd_box{
+	display: inline-block;
+	margin-left: 20px;
+	width : 200px;
+}
+
+#old_pwd_box {
+	display: inline-block; 
+	vertical-align: middle;
+	background-color: #ffffff;
+	width:200px;
+}
+
+#old_pwd{
+	height: 30px;
+	width : 150px;
+	border: none;
+}
+
+#new_pwd_box {
+	display: inline-block; 
+	vertical-align: middle;
+	background-color: #ffffff;
+	width:200px;
+}
+
+#new_pwd{
+	height: 30px;
+	width : 150px;
+	border: none;
+}
+
+#new_pwd_check_box {
+	display: inline-block; 
+	vertical-align: middle;
+	background-color: #ffffff;
+	width:200px;
+}
+
+#new_pwd_check{
+	height: 30px;
+	width : 150px;
+	border: none;
+}
+
+#submit {
+	margin-left: 11px;
+	display: inline-block;
+	vertical-align: top;
+	width: 100px;
+	height: 100.5px;
+	background-color: #083b90; 
+	border: none; 
+	color: #FFFFFF;
+}
+
+.my_info_white{
+	color:#000000;
+	display: inline-block;
+	vertical-align: top;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.board_boxes{
+	width : 350px;
+	height : 250px;
+	background-color: #FFFFFF;
+	display: inline-block;
+	border : 2px #E1E1E1 solid;
+	vertical-align: top;
+	padding : 20px;
+}
+
+#board_box1 {
+	margin-left: 15px;
+}
+
+#board_box2 {
+	margin-left: 15px;
+}
+
+#board_box3 {
+	display: inline-block;
+}
+
+#board_box4 {
+	display: inline-block;
+	margin-left: 15px;
+}
+
+#banner_box1{
+	width : 804px;
+	height : 150px;
+	background-color: #FFFFFF;
+	display: inline-block;
+	border : 2px #E1E1E1 solid;
+	margin-top: 19px;
+}
+
+#board_box_leftside{
+	display:inline-block;
+	margin-top: 19px;
+	width: 809px;
+}
+
+#banner_box2{
+	width : 390px;
+	height : 463px;
+	background-color: #FFFFFF;
+	display: inline-block;
+	border:2px #E1E1E1 solid;
+	margin-top: 19px;
+	margin-left: 15px;
+	vertical-align: top;
+}
+
+.box_title {
+	font-weight: bold;
+	font-size: 20px;
+	color: #083b90;
+	display: inline-block;
+}
+
+p {
+  display: block;
+  margin-top: 1.5em;
+  margin-bottom: 2em;
+  margin-left: 0;
+  margin-right: 0;
+
+}
+
+#banner1_image{
+	width : 804px;
+	height : 150px;
+	cursor: pointer;
+}
+
+#banner2_image{
+	width : 390px;
+	height : 463px;
+	cursor: pointer;
+}
+
+footer {
+	background-color: #EBF7FF;
+}
+
+#footer_box{
+	width: 100%;
+	height: 150px;
+	background-color: #313740;
+	display: inline-block;
+	text-align: left;
+	margin-top: 50px;
+	border-top: 1px solid gray;
+}
+
+#footer_title{
+	display: inline-block;
+	color : #FFFFFF;
+	font-weight: bold;
+	font-size: 40px; 
+	margin-left:620px;
+}
+
+#footer_text {
+	display: inline-block;
+	color : #FFFFFF;
+	margin-top:50px;
+	margin-left:50px;
+}
+
+</style>
+</head>
+<header>
+	<div id = "logo">
+		<a href = "main.do"><img src ="../image/logo3.png"></a>
+	</div>
+	<div id = "hello_box">
+		<span id = "name">
+			${name}
+		</span>
+		님 반갑습니다.&nbsp;&nbsp;
+		<img src="../image/lock.png" id= "lock_image">
+		<a href = "logout.do" id = "logout">로그아웃</a>
+	</div>
+	<hr>
+</header>
+<body>
+	<nav>
+		<div id = "nav_boxes">
+			<div id = "nav1" class = "nav">
+				<a href = "" class = "nav">학사정보</a><br>
+			</div>
+			<div id = "nav_window1" class ="nav_window">
+				<div id = "nav_title1" class = "nav_title">
+					<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;학사정보
+				</div>
+				<div id ="nav_right1" class = "nav_right">
+					<div id = "nav_right_list1" class = "nav_right_list">
+						<div class = "nav_right_box">
+							<div class = "nav_right_title">
+								학적
+							</div>
+							<ul class= "inside_list">
+								<li><a href = "">학적조회</a></li>
+							</ul>
+						</div>
+						<div class = "nav_right_box">
+							<div class = "nav_right_title">
+								수업
+							</div>
+							<ul class= "inside_list">
+								<li><a href = "">수강신청</a></li>
+								<li><a href = "">수강내역조회</a></li>
+								<li><a href = "">시간표조회</a></li>
+							</ul>
+						</div>
+						<div class = "nav_right_box">
+							<div class = "nav_right_title">
+								성적
+							</div>
+							<ul class= "inside_list">
+								<li><a href = "">성적조회</a></li>
+							</ul>
+						</div>
+						<div class = "nav_right_box">
+							<div class = "nav_right_title">
+								등록
+							</div>
+							<ul class= "inside_list">
+								<li><a href = "">등록조회</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			&nbsp;&nbsp;·&nbsp;&nbsp;
+			<div id = "nav2" class = "nav">
+				<a href = "" class = "nav">알림마당</a><br>
+			</div>
+			<div id = "nav_window2" class ="nav_window">
+				<div id = "nav_title2" class = "nav_title">
+					<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림마당
+				</div>
+				<div id ="nav_right2" class = "nav_right">
+					<div id = "nav_right_list2" class = "nav_right_list">
+						<div class = "nav_right_box">
+							<div class = "nav_right_title">
+								공지사항
+							</div>
+							<ul class= "inside_list">
+								<li><a href = "">공지사항</a></li>
+							</ul>
+						</div>
+						<div class = "nav_right_box">
+							<div class = "nav_right_title">
+								알림게시판
+							</div>
+							<ul class= "inside_list">
+								<li><a href = "">알림게시판</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			&nbsp;&nbsp;·&nbsp;&nbsp;
+			<div id = "nav3" class = "nav">
+				<a href = "" class = "nav">참여마당</a><br>
+			</div>
+			<div id = "nav_window3" class ="nav_window">
+				<div id = "nav_title3" class = "nav_title">
+					<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;참여마당
+				</div>
+				<div id ="nav_right3" class = "nav_right">
+					<div id = "nav_right_list3" class = "nav_right_list">
+						<div class = "nav_right_box">
+							<div class = "nav_right_title">
+								통합게시판
+							</div>
+							<ul class= "inside_list">
+								<li><a href = "">통합게시판</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			&nbsp;&nbsp;·&nbsp;&nbsp;
+			<div id = "nav4" class = "nav">
+				<a href = "" class = "nav">도움마당</a><br>
+			</div>
+			<div id = "nav_window4" class ="nav_window">
+				<div id = "nav_title4" class = "nav_title">
+					<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도움마당
+				</div>
+				<div id ="nav_right4" class = "nav_right">
+					<div id = "nav_right_list4" class = "nav_right_list">
+						<div class = "nav_right_box">
+							<div class = "nav_right_title">
+								도움마당
+							</div>
+							<ul class= "inside_list">
+								<li><a href = "">시설관리 요구사항 게시판</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<section>
+	<hr>
+	<div id = "section_main">
+		<div id = "big_box">
+			<div id = "box_blue">
+				<div id = "change_box">
+					<div id = "change_text">
+						<div id = "change_pwd">
+							비밀번호 변경
+						</div>
+						<div id ="error">
+							${change_pwd_error }　
+						</div>
+					</div>
+				</div>
+				<a href = "main.do">
+					<img src = "../image/gear.png" id="go_info_box_image">
+				</a> 
+				<div id = "box_white">
+					<div id="change_pwd_box">
+						<form action="changePwdOk.do" method="post">
+							<div id = "pwd_box">
+								<div id ="old_pwd_box">
+									<input type = "password" class ="change_pwd" id = "old_pwd" name = "old_pwd" required="required" placeholder="기존 비밀번호">
+								</div>
+								<div id ="new_pwd_box">
+									<input type = "password" class ="change_pwd" id = "new_pwd" name = "new_pwd" required="required" placeholder="새 비밀번호">
+								</div>
+								<div id ="new_pwd_check_box">
+									<input type = "password" class ="change_pwd" id = "new_pwd_check" name = "new_pwd_check" required="required" placeholder="새 비밀번호 확인">
+								</div>
+							</div>
+							<input type = "submit" value = "비밀번호 변경" id = "submit">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id = "board_box1" class= "board_boxes">
+			<div id ="notice_box">
+				<div class = "box_title">
+					<a href = "" class = "box_title">공지사항</a>
+				</div>
+				<hr>
+				<div id = "link_box1" class = "link_boxes">
+					<ul id = "box1_article">
+						<li> 
+							<p><a href="">공지사항1</a></p>
+						</li>
+						<li>
+							<p><a href="">공지사항2</a></p>
+						</li>
+						<li>
+							<p><a href="">공지사항3</a></p>
+						</li>
+						<li>
+							<p><a href="">공지사항4</a></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id = "board_box2" class= "board_boxes">
+			<div id ="readme_box">
+				<div class = "box_title">
+					<a href = "" class = "box_title">알림게시판</a>
+				</div>
+				<hr>
+				<div id = "link_box2" class = "link_boxes">
+					<ul id = "box2_article">
+						<li>
+							<p><a href="">알림1</a></p>
+						</li>
+						<li>
+							<p><a href="">알림2</a></p>
+						</li>
+						<li>
+							<p><a href="">알림3</a></p>
+						</li>
+						<li>
+							<p><a href="">알림4</a></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id = "board_box_leftside">
+			<div id = "board_box3" class= "board_boxes">
+				<div>
+					<div class = "box_title">
+						<a href = "" class = "box_title">학사정보</a>
+					</div>
+					<hr>
+					<div id = "link_box3" class = "link_boxes">
+						<ul id = "box3_article">
+							<li>
+								<p><a href="">학사정보1</a></p>
+							</li>
+							<li>
+								<p><a href="">학사정보2</a></p>
+							</li>
+							<li>
+								<p><a href="">학사정보3</a></p>
+							</li>
+							<li>
+								<p><a href="">학사정보4</a></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id = "board_box4" class= "board_boxes">
+				<div>
+					<div class = "box_title">
+						<a href = "" class = "box_title">통합게시판</a>
+					</div> 
+					<hr>
+					<div id = "link_box4" class = "link_boxes">
+					<ul id = "box4_article">
+						<li>
+							<p><a href="">통합게시판1</a></p>
+						</li>
+						<li>
+							<p><a href="">통합게시판2</a></p>
+						</li>
+						<li>
+							<p><a href="">통합게시판3</a></p>
+						</li>
+						<li>
+							<p><a href="">통합게시판4</a></p>
+						</li>
+					</ul>
+					</div>
+				</div>
+			</div>
+			<div id = "banner_box1" class = "banner_boxes">
+				<a href = "https://www.kosaf.go.kr" target = "_blank"><img src="../image/scholarship.png" id = "banner1_image"></a>
+			</div>
+		</div>
+		<div id = "banner_box2" class="banner_boxes"> 
+			<a href = "https://www.kosaf.go.kr" target = "_blank"><img src="../image/loan.png" id = "banner2_image"></a>
+		</div>
+	</div>
+	</section>
+</body>
+<footer>
+	<div id ="footer_box">
+		<div id = "footer_title">
+		비트대학교
+		</div>
+		<div id = "footer_text">
+			　　주소 | 서울특별시 마포구 백범로 23 구프라자 B1<br>
+			대표전화 | 02-707-1480
+		</div>
+	</div>
+</footer>
+</html>

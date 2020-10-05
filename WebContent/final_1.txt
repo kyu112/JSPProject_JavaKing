@@ -1,0 +1,369 @@
+
+CREATE TABLE BOARD (
+       BOARD_NO             NUMBER NOT NULL,
+       BOARD_BOARDNO        NUMBER NOT NULL,
+       BOARD_CATEGORY       VARCHAR2(20) NOT NULL,
+       BOARD_TITLE          VARCHAR2(100) NOT NULL,
+       BOARD_CONTENT        VARCHAR2(1000) NOT NULL,
+       BOARD_REGDATE        DATE NOT NULL,
+       BOARD_HIT            NUMBER NOT NULL,
+       BOARD_PWD            VARCHAR2(20) NOT NULL,
+       BOARD_FNAME          VARCHAR2(20) NULL,
+       STD_NO               NUMBER NOT NULL
+);
+
+
+ALTER TABLE BOARD
+       ADD  ( PRIMARY KEY (BOARD_NO) ) ;
+
+
+CREATE TABLE CHANGE (
+       CHANGE_NO            NUMBER NOT NULL,
+       CHANGE_YEAR          NUMBER NOT NULL,
+       CHANGE_SEMESTER      NUMBER NOT NULL,
+       CHANGE_LEVEL         NUMBER NOT NULL,
+       CHANGE_SUB           VARCHAR2(50) NOT NULL,
+       CHANGE_DATE          DATE NOT NULL,
+       STD_NO               NUMBER NOT NULL
+);
+
+
+ALTER TABLE CHANGE
+       ADD  ( PRIMARY KEY (CHANGE_NO) ) ;
+
+
+CREATE TABLE CLASS (
+       CLASS_NO             NUMBER NOT NULL,
+       CLASS_NAME           VARCHAR2(50) NOT NULL,
+       CLASS_STARTDATE      DATE NOT NULL,
+       CLASS_ENDDATE        DATE NOT NULL,
+       CLASS_DAYOFWEEK      VARCHAR2(20) NOT NULL,
+       CLASS_TIME           VARCHAR2(20) NOT NULL,
+       CLASS_ROOM           VARCHAR2(50) NOT NULL,
+       CLASS_CREDIT         NUMBER NOT NULL,
+       CLASS_TYPE           VARCHAR2(20) NOT NULL,
+       PRO_NO               NUMBER NOT NULL
+);
+
+
+ALTER TABLE CLASS
+       ADD  ( PRIMARY KEY (CLASS_NO) ) ;
+
+
+CREATE TABLE CLASSREG (
+       CLASSREG_NO          NUMBER NOT NULL,
+       CLASSREG_DATE        DATE NOT NULL,
+       CLASSREG_LEVEL       NUMBER NOT NULL,
+       CLASSREG_SEMESTER    NUMBER NOT NULL,
+       CLASSREG_RETAKE      VARCHAR2(10) NOT NULL,
+       STD_NO               NUMBER NOT NULL,
+       CLASS_NO             NUMBER NOT NULL
+);
+
+ALTER TABLE CLASSREG
+       ADD  ( PRIMARY KEY (CLASSREG_NO) ) ;
+
+
+CREATE TABLE GRADE (
+       GRADE_NO             NUMBER NOT NULL,
+       GRADE_REGCREDIT      NUMBER NOT NULL,
+       GRADE_GETCREDIT      NUMBER NOT NULL,
+       GRADE_SCORE          NUMBER NOT NULL,
+       GRADE_SEMESTER       NUMBER NOT NULL,
+       GRADE_LEVEL          NUMBER NOT NULL,
+       STD_NO               NUMBER NOT NULL,
+       CLASS_NO             NUMBER NOT NULL
+);
+
+
+ALTER TABLE GRADE
+       ADD  ( PRIMARY KEY (GRADE_NO) ) ;
+
+
+CREATE TABLE PROFESSOR (
+       PRO_NO               NUMBER NOT NULL,
+       PRO_NAME             VARCHAR2(20) NOT NULL,
+       PRO_EMAIL            VARCHAR2(50) NOT NULL,
+       PRO_MAJOR            VARCHAR2(50) NULL,
+       PRO_TYPE             VARCHAR2(50) NOT NULL
+);
+
+
+ALTER TABLE PROFESSOR
+       ADD  ( PRIMARY KEY (PRO_NO) ) ;
+
+
+CREATE TABLE REGISTER (
+       REG_NO               NUMBER NOT NULL,
+       REG_DATE            DATE,
+       REG_SEMESTER         NUMBER NOT NULL,
+       REG_LEVEL            NUMBER NOT NULL,
+       REG_ENTFEE           NUMBER NOT NULL,
+       REG_FEE              NUMBER NOT NULL,
+       REG_REGFEE           NUMBER NOT NULL,
+       STD_NO               NUMBER NOT NULL
+);
+
+
+ALTER TABLE REGISTER
+       ADD  ( PRIMARY KEY (REG_NO) ) ;
+
+
+CREATE TABLE REPLY (
+       REPLY_NO             NUMBER NOT NULL,
+       REPLY_CONTENT        VARCHAR2(1000) NOT NULL,
+       REPLY_REGDATE        DATE NOT NULL,
+       STD_NO               NUMBER NULL,
+       BOARD_NO             NUMBER NOT NULL
+);
+
+
+ALTER TABLE REPLY
+       ADD  ( PRIMARY KEY (REPLY_NO) ) ;
+
+
+CREATE TABLE STUDENT (
+       STD_NO               NUMBER NOT NULL,
+       STD_PWD              VARCHAR2(50) NOT NULL,
+       STD_EMAIL            VARCHAR2(50) NOT NULL,
+       STD_NAME             VARCHAR2(20) NOT NULL,
+       STD_GENDER           VARCHAR2(10) NOT NULL,
+       STD_BIRTHDAY         DATE NOT NULL,
+       STD_LEVEL            NUMBER NOT NULL,
+       STD_SEMESTER         NUMBER NOT NULL,
+       STD_MAJOR            VARCHAR2(50) NOT NULL,
+       STD_STATUS           VARCHAR2(50) NOT NULL,
+       STD_STARTDATE        DATE NOT NULL,
+       STD_ENDDATE          DATE NULL,
+       STD_ETC              VARCHAR2(1000) NULL,
+       PRO_NO               NUMBER NOT NULL
+);
+
+
+ALTER TABLE STUDENT
+       ADD  ( PRIMARY KEY (STD_NO) ) ;
+
+
+ALTER TABLE BOARD
+       ADD  ( FOREIGN KEY (STD_NO)
+                             REFERENCES STUDENT ) ;
+
+
+ALTER TABLE CHANGE
+       ADD  ( FOREIGN KEY (STD_NO)
+                             REFERENCES STUDENT ) ;
+
+
+ALTER TABLE CLASS
+       ADD  ( FOREIGN KEY (PRO_NO)
+                             REFERENCES PROFESSOR ) ;
+
+
+ALTER TABLE CLASSREG
+       ADD  ( FOREIGN KEY (STD_NO)
+                             REFERENCES STUDENT ) ;
+
+
+ALTER TABLE CLASSREG
+       ADD  ( FOREIGN KEY (CLASS_NO)
+                             REFERENCES CLASS ) ;
+
+
+ALTER TABLE GRADE
+       ADD  ( FOREIGN KEY (STD_NO)
+                             REFERENCES STUDENT
+                             ON DELETE SET NULL ) ;
+
+
+ALTER TABLE GRADE
+       ADD  ( FOREIGN KEY (CLASS_NO)
+                             REFERENCES CLASS
+                             ON DELETE SET NULL ) ;
+
+
+ALTER TABLE REGISTER
+       ADD  ( FOREIGN KEY (STD_NO)
+                             REFERENCES STUDENT ) ;
+
+
+ALTER TABLE REPLY
+       ADD  ( FOREIGN KEY (BOARD_NO)
+                             REFERENCES BOARD ) ;
+
+
+ALTER TABLE REPLY
+       ADD  ( FOREIGN KEY (STD_NO)
+                             REFERENCES STUDENT
+                             ON DELETE SET NULL ) ;
+
+
+ALTER TABLE STUDENT
+       ADD  ( FOREIGN KEY (PRO_NO)
+                             REFERENCES PROFESSOR ) ;
+
+
+insert into professor values (13540, '장길남', 'jkn@bit.ac.kr', '기계공학' ,'공학부'); 
+insert into professor values (15289, '이태석', 'taeseok@bit.ac.kr' ,'전자전기' ,'공학부');
+insert into professor values (18354, '김민환', 'mhkim@bit.ac.kr' ,'컴퓨터공학' ,'공학부'); 
+insert into professor values (18987, '유의성', 'ys777@bit.ac.kr' ,'컴퓨터공학' ,'공학부');
+insert into professor values (14399, '선하영', 'shy@bit.ac.kr' ,'무용학' ,'문화예술학부'); 
+insert into professor values (19002, '김미리', 'miri0@bit.ac.kr' ,'경영학' ,'사회경영학부');
+ insert into professor values (14589, '김민생', 'kimms@bit.ac.kr' ,'관광경영학' ,'사회경영학부');
+ insert into professor values (16532, '오영식', 'young2@bit.ac.kr' ,'사회복지' ,'사회경영학부');
+ insert into professor values (15676, '이상엽', 'sysy@bit.ac.kr' ,'세무회계' ,'사회경영학부');
+ insert into professor values (16245, '민초희', 'cho@bit.ac.kr' ,'행정학' ,'사회경영학부');
+ insert into professor values (18005, '홍은애', 'qwer@bit.ac.kr' ,'국어국문학', '인문학부'); 
+insert into professor values (17936, '진태영', 'ty0806@bit.ac.kr' ,'영어영문학', '인문학부');
+
+insert into class values(1,'기초글쓰기','2020-03-02','2020-06-26','월','23','A904',2,'전공',18005); 
+insert into class values(2,'독서와소통','2020-03-02','2019-06-26','수','12','C904',2,'전공',18005);
+ insert into class values(3,'기초영어회화','2020-03-02','2019-06-26','수','56','F202',2,'전공',17936);
+ insert into class values(4,'기초중국어회화','2020-03-02','2019-06-26','금','67','F304',2,'전공',13540);
+ insert into class values(5,'기초일본어회화','2020-03-02','2019-06-26','월',23,'F303','2','전공',14399); 
+insert into class values(6,'인성심리학','2020-03-02','2019-06-26','월.수','56.2','F406','2','전공',14589); 
+insert into class values(7,'인간관계론','2020-03-02','2019-06-26','화,목','6.34','F607','3','전공',15289); 
+insert into class values(8,'한국사','2020-03-02','2019-06-26','화',234,'D209','3','전공',15289);
+ insert into class values(9,'웰빙과영양','2020-03-02','2019-06-26','월.수',89.5,'A114','3','교양',16245);
+ insert into class values(10,'대중음악의이해','2020-03-02','2019-06-26','수',123,'A704','3','교양',16532); 
+insert into class values(11,'미술과애니메이션','2020-03-02','2019-06-26','월.금',12.4,'C204','3','전공',17936);
+ insert into class values(12,'뷰티힐링서비스','2020-03-02','2019-06-26','화.수',2.34,'C208','3','전공',15676);
+ insert into class values(13,'이미지메이킹','2020-03-02','2019-06-26','목',567,'E704','3','교양',18354); 
+insert into class values(14,'미술과치유','2020-03-02','2019-06-26','목.금',67.6,'D505','3','교양',18987); 
+insert into class values(15,'Oracle의이해','2020-03-02','2019-06-26','목.금',34.2,'C504','3','전공',18354);
+ insert into class values(16,'컴퓨터개론','2020-03-02','2019-06-26','금',123,'C501','3','전공',18987);
+ insert into class values(17,'데이터베이스의이해','2020-03-02','2019-06-26','월.목',4.89,'C503','3','전공',18354);
+
+insert into student values(2014104194, 'qlxm0', 'jigmund37@naver.com', '정효빈','남','1996-02-26', 2, 2,'컴퓨터정보과', '휴학', '2017-04-11', null, null, 13540);
+ insert into student values(2014104195,'qlxm1', 'asd5959@naver.com', '홍성호', '남', '1994-07-05',4, 2, '사회복지학과', '재학','2016-04-11', '2020-02-08',null, 16532);
+ insert into student values(2014104196,'qlxm2', 'rkatmxm@gmail.com','김호규', '남', '1994-03-02', 4, 2, '생명과학과', '재학', '2016-04-12', '2020-02-09', null, 18354);
+ insert into student values(2014104197,'qlxm3', 'kkkkk@naver.com', '정민경', '여','1994-12-02', 4, 2, '행정학과', '휴학', '2016-04-13', '2020-02-10',null, 16245);
+ insert into student values(2014104198,'qlxm4', 'dkanjgkwl@daum.net', '황유선', '여', '1996-06-29', 3,1, '관광경영과', '복학','2015-03-04', null, null, 14589);
+ insert into student values(2014104199,'qlxm5', 'dldidldi@naver.com', '임규희', '여', '1995-06-30', 3, 1, '경영학과','재학', '2020-04-11', null, null, 14589);
+ insert into student values(2014104200,'qlxm6', 'qweasd@naver.com','장호성', '남', '2001-05-01',1,1, '국어국문학과', '휴학', '2020-04-12', null, null, 18005); 
+insert into student values(2014104201,'qlxm7', 'lololo@naver.com', '이기엽', '남', '2001-04-01',1,1, '무용학과','재학', '2020-04-13',null,null, 14399); 
+insert into student values(2014104202,'qlxm8', 'lililililil@naver.com', '이상우', '남', '2001-07-27', 1, 1, '세무회계과','재학', '2020-04-14', null, null, 15676); 
+insert into student values(2014104203,'qlxm9', 'qszxc@naver.com', '박종회', '남','2001-12-18', 1, 1,'전기전자과', '재학', '2020-04-15', null, null, 15289);
+
+insert into board values(
+1,100,'삽니다','갤럭시 노트10
+중고삽니다','갤럭시 노트10
+중고 있으신분
+댓글 달아주세요','2019-08-05',23,'1234','galaxy10.png','2014104197');
+
+insert into board values(
+2,200,'팝니다','김민생 교수님
+경영학개론
+10000원에 팜','작년 책 
+낙서없음
+010-1111-1111
+연락주세요','2019-03-14',10,'bookpwd1','book.png','2014104202');
+
+insert into board values(
+3,300,'자유게시판','작년에 김민생
+교수님 수업 
+들으신분?','교수님 과제
+많은편인가요?','2020-02-11',50,'rhkwp123',null,'2014104199');
+
+insert into board values(
+4,400,'익명게시판','후문 딸기막걸리
+맛집 추천','딸기막걸리 존맛
+치즈김치전도 
+먹어야함','2020-06-07',10,'5555','ananan.jpg','2014104203');
+
+insert into reply values(1,'사셨나요','2020-03-02','2014104194',1);
+insert into reply values(2,'많은듯','2020-02-11','2014104198',3);
+insert into reply values(3,'꿀막걸리도 맛있음','2020-08-06','2014104202',4);
+insert into reply values(4,'ㅇㅇ 엄청많음','2020-02-12','2014104201',3);
+
+insert into register values (1,	'2015-03-02',	1,	1,	0,	0,	2250000,	 2014104198);
+insert into register values (2,	'2015-03-02',	2,	1,	0,	0,	2250000,	 2014104198);
+insert into register values (3,	'2015-03-02',	1,	2,	0,	0,	2250000,	 2014104198);
+insert into register values (4,	'2015-03-02',	2,	2,	0,	0,	2250000,	 2014104198);
+insert into register values (5,	'2015-03-02',	1,	3,	0,	0,	2250000,	 2014104198);
+insert into register values (6,	'2016-03-02',	1,	1,	0,	0,	2250000,	 2014104195);
+insert into register values (7,	'2016-03-02',	2,	1,	0,	0,	2250000,	 2014104195);
+insert into register values (8,	'2016-03-02',	1,	2,	0,	0,	2250000,	 2014104195);
+insert into register values (9,	'2016-03-02',	2,	2,	0,	0,	2250000,	 2014104195);
+insert into register values (10,	'2016-03-02',	1,	3,	0,	0,	2250000,	 2014104195);
+insert into register values (11,	'2016-03-02',	2,	3,	0,	0,	2250000,	 2014104195);
+insert into register values (12,	'2016-03-02',	1,	4,	0,	0,	2250000,	 2014104195);
+insert into register values (13,	'2016-03-02',	2,	4,	0,	0,	2250000,	 2014104195);
+insert into register values (14,	'2016-03-02',	1,	1,	0,	0,	2250000,	 2014104196);
+insert into register values (15,	'2016-03-02',	2,	1,	0,	0,	2250000,	 2014104196);
+insert into register values (16,	'2016-03-02',	1,	2,	0,	0,	2250000,	 2014104196);
+insert into register values (17,	'2016-03-02',	2,	2,	0,	0,	2250000,	 2014104196);
+insert into register values (18,	'2016-03-02',	1,	3,	0,	0,	2250000,	 2014104196);
+insert into register values (19,	'2016-03-02',	2,	3,	0,	0,	2250000,	 2014104196);
+insert into register values (20,	'2016-03-02',	1,	4,	0,	0,	2250000,	 2014104196);
+insert into register values (21,	'2016-03-02',	2,	4,	0,	0,	2250000,	 2014104196);
+insert into register values (22,	'2016-03-02',	1,	1,	0,	0,	2250000,	 2014104197);
+insert into register values (23,	'2016-03-02',	2,	1,	0,	0,	2250000,	 2014104197);
+insert into register values (24,	'2016-03-02',	1,	2,	0,	0,	2250000,	 2014104197);
+insert into register values (25,	'2016-03-02',	2,	2,	0,	0,	2250000,	 2014104197);
+insert into register values (26,	'2016-03-02',	1,	3,	0,	0,	2250000,	 2014104197);
+insert into register values (27,	'2016-03-02',	2,	3,	0,	0,	2250000,	 2014104197);
+insert into register values (28,	'2016-03-02',	1,	4,	0,	0,	2250000,	 2014104197);
+insert into register values (29,	'2016-03-02',	2,	4,	0,	0,	2250000,	 2014104197);
+insert into register values (30,	'2017-03-02',	1,	1,	0,	0,	2250000,	 2014104194);
+insert into register values (31,	'2017-03-02',	2,	1,	0,	0,	2250000,	 2014104194);
+insert into register values (32,	'2017-03-02',	1,	2,	0,	0,	2250000,	 2014104194);
+insert into register values (33,	'2017-03-02',	2,	2,	0,	0,	2250000,	 2014104194);
+insert into register values (34,	'2020-03-02',	1,	1,	0,	0,	2250000,	 2014104199);
+insert into register values (35,	'2020-03-02',	2,	1,	0,	0,	2250000,	 2014104199);
+insert into register values (36,	'2020-03-02',	1,	2,	0,	0,	2250000,	 2014104199);
+insert into register values (37,	'2020-03-02',	2,	2,	0,	0,	2250000,	 2014104199);
+insert into register values (38,	'',	1,	3,	225000,	2250000, 0,	 2014104199);
+insert into register values (39,	'',	1,	1,	225000,	2250000,	0,	 2014104200);
+insert into register values (40,	'2020-03-02',	1,	1,	0,	0,	2250000,  2014104201);
+insert into register values (41,	'2020-03-02',	1,	1,	0,	0,	2250000,	 2014104202);
+insert into register values (42,	'2020-03-02',	1,	1,	0,	0,	2250000,	 2014104203);
+
+insert into grade values(1,2,3.5,89,1,1,2014104194,1);
+insert into grade values(2,2,4,92,1,1,2014104194,17);
+insert into grade values(3,2,3.5,88,1,1,2014104195,16);
+insert into grade values(4,2,4,93,1,1,2014104195,9);
+insert into grade values(5,2,4.5,98,1,1,2014104196,6);
+insert into grade values(6,3,3,80,1,1,2014104196,12);
+insert into grade values(7,3,2.5,78,1,1,2014104197,10);
+insert into grade values(8,3,2.5,76,1,1,2014104197,16);
+insert into grade values(9,3,3.5,86,1,1,2014104198,9);
+insert into grade values(10,3,3,81,1,1,2014104198,5);
+insert into grade values(11,3,3,84,1,1,2014104199,3);
+insert into grade values(12,3,3,80,1,1,2014104199,13);
+insert into grade values(13,3,2,72,1,1,2014104200,4);
+insert into grade values(14,3,1.5,66,1,1,2014104200,15);
+insert into grade values(15,3,4,94,1,1,2014104201,2);
+insert into grade values(16,3,3,82,1,1,2014104201,14);
+insert into grade values(17,3,3.5,87,1,1,2014104202,12);
+insert into grade values(18,3,4,90,1,1,2014104202,7);
+insert into grade values(19,3,3,80,1,1,2014104203,11);
+insert into grade values(20,3,3.5,88,1,1,2014104203,17);
+
+insert into classreg values(1,'2020-03-02',1,1,'N',2014104194,00001);
+insert into classreg values(2,'2020-03-02',1,1,'Y',2014104194,00017);
+insert into classreg values(3,'2020-03-02',1,1,'N',2014104195,00016);
+insert into classreg values(4,'2020-03-02',1,1,'N',2014104195,00009);
+insert into classreg values(5,'2020-02-28',1,1,'N',2014104196,00006);
+insert into classreg values(6,'2020-02-28',1,1,'N',2014104196,00012);
+insert into classreg values(7,'2020-02-28',1,1,'N',2014104197,00010);
+insert into classreg values(8,'2020-03-04',1,1,'N',2014104197,00016);
+insert into classreg values(9,'2020-03-05',1,1,'N',2014104198,00009);
+insert into classreg values(10,'2020-03-05',1,1,'N',2014104198,00005);
+insert into classreg values(11,'2020-03-05',1,1,'N',2014104199,00003);
+insert into classreg values(12,'2020-03-02',1,1,'N',2014104199,00013);
+insert into classreg values(13,'2020-02-28',1,1,'N',2014104200,00004);
+insert into classreg values(14,'2020-03-04',1,1,'Y',2014104200,00015);
+insert into classreg values(15,'2020-03-04',1,1,'N',2014104201,00002);
+insert into classreg values(16,'2020-03-02',1,1,'N',2014104201,00014);
+insert into classreg values(17,'2020-03-04',1,1,'N',2014104202,00012);
+insert into classreg values(18,'2020-02-28',1,1,'N',2014104202,00007);
+insert into classreg values(19,'2020-03-04',1,1,'N',2014104203,00011);
+insert into classreg values(20,'2020-02-28',1,1,'Y',2014104203,00017);
+
+insert into CHANGE values (1,2014,1,1,'신입학','2014-03-03','2014104195');
+insert into CHANGE values (2,2015,1,2,'일반휴학','2015-02-25','2014104195');
+insert into CHANGE values (3,2016,1,2,'일반휴학 연장','2016-02-29','2014104195');
+insert into CHANGE values (4,2016,2,2,'군휴학연장','2016-10-05','2014104195');
+insert into CHANGE values (5,2019,1,3,'제대복학','2019-02-07','2014104195');
+insert into CHANGE values (6,2020,1,4,'졸업','2020-03-02','2014104195');
+

@@ -1,0 +1,9 @@
+drop table board;
+drop table change;
+drop table class;
+drop table classreg;
+drop table grade;
+drop table professor;
+drop table register;
+drop table reply;
+drop table student;
